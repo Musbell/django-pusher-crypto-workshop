@@ -96,7 +96,6 @@ $(document).ready(() => {
 
   var priceUpdateFunction = function(symbol, cryptoChart, cryptoData){
     return function(data) {
-      console.log(data)
       if(!cryptoChart){
         return;
       }
