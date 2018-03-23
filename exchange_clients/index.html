@@ -1,0 +1,18 @@
+<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+
+<script type="text/javascript">
+  Pusher.logToConsole = true;
+  var pusher = new Pusher('de504dc5763aeef9ff52');
+
+  // var channel = pusher.subscribe('live_trades');
+
+  // channel.bind('trade', function (data) {
+  //   console.log(data)
+  // });
+  // channel.bind('pusher:subscription_succeeded', function (data) {
+  //   console.log("Subscribed correctly")
+  // });
+
+  var channel2 = pusher.subscribe('live_ticker');
+  var channel3 = pusher.subscribe('live_tickers');
+</script>

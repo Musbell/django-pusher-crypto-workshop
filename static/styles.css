@@ -1,0 +1,274 @@
+
+body {
+  background-color: #2e3e4e;
+  font-family: 'Lato', sans-serif;
+  padding-bottom: 30px;
+}
+
+a {
+  color: #0cc2aa;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #0ff0d2;
+  text-decoration: none;
+}
+
+hr {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 20px 30px 30px;
+}
+
+section {
+  max-width: 1280px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.error {
+  color: #ED4C67;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.btn {
+  width: 100%;
+  color: rgba(255, 255, 255, .87);
+  background-color: #0cc2aa;
+  font-size: 15px;
+  padding: 7px 20px;
+  margin-bottom: 4px;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  box-shadow: inset 0 -10rem 0 rgba(158, 158, 158, .2);
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.card {
+  background: #FFF;
+  text-align: left;
+  border-radius: 3px;
+  padding: 20px 25px;
+  margin: 0 auto 15px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .1), 0 -1px 0 rgba(0, 0, 0, .02)
+}
+
+.card.no-height {
+  height: initial;
+}
+
+.card hr {
+  border-top: 1px solid #eee;
+  margin: 5px 20px 20px;
+}
+
+.card .title {
+  font-size: 16px;
+}
+
+.card .title .highlight {
+  font-weight: 900;
+}
+
+.card table {
+  font-size: 12px;
+}
+
+.card table th {
+  border-top: none;
+}
+
+.card table tr.self {
+  background: #e7f3ff;
+}
+
+.card table tr.self:hover {
+  background: #d1e7ff;
+}
+
+.card.transactions .user {
+  color: #555;
+}
+
+.card.transactions .amount {
+  color: #555;
+}
+
+.card.transactions .price {
+  font-weight: 600;
+}
+
+.card.transactions .time {
+  color: #BBB;
+}
+
+.top-card {
+  color: #FFF;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.top-card .title {
+  margin: 0px;
+}
+
+.top-card .price {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  margin: 0;
+}
+
+#chart-1,
+#chart-2,
+#chart-3 {
+  height: 300px;
+}
+
+.fa-btc {
+  color: #e74c3c;
+  margin-right: 5px;
+}
+
+.fa-ethereum {
+  color: #2ecc71;
+  margin-right: 5px;
+}
+
+.fa-circle {
+  color: #3498db;
+  margin-right: 5px;
+}
+
+.fa-exchange-alt {
+  color: #7f8c8d;
+  margin-right: 5px;
+}
+
+.fa-users {
+  color: #7f8c8d;
+  margin-right: 5px;
+}
+
+.fa-money-bill-alt {
+  color: #f1c40f;
+  margin-right: 5px;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px 20px 60px;
+}
+
+.main-container #last-prices {
+  background-color: #1b252f;
+  padding: 15px;
+  margin: -20px -20px 10px;
+}
+
+.main-container #last-prices .text {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  position: absolute;
+}
+
+.main-container .login-form {
+  background: url(images/bg.jpg) no-repeat center center;
+  background-size: cover;
+  text-align: center;
+  padding: 20px;
+  margin: -10px -20px;
+  box-shadow: 4px 2px 5px rgba(0,0,0,0.2);
+}
+
+.main-container .login-form .login-box {
+  width: 320px;
+  margin: 0 auto 5px;
+}
+
+.main-container .login-form img {
+  width: 40px;
+  padding-bottom: 20px;
+}
+
+.main-container .login-form .login-box .title {
+  color: #444;
+  font-size: 14px;
+}
+
+.main-container .login-form .footer-text {
+  color: rgba(255, 255, 255, .87);
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.main-container .cards-container {
+  margin: 45px auto 0;
+}
+
+.team-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px 20px 60px;
+}
+
+.team-container .team-banner {
+  background: url(images/bg.jpg) no-repeat center center;
+  background-size: cover;
+  text-align: center;
+  box-shadow: 4px 2px 5px rgba(0,0,0,0.2);
+  padding: 20px;
+  margin: -20px -20px 20px;
+}
+
+.team-container .team-banner .back-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.team-container .team-banner .back-container .back {
+  color: #FFF;
+  font-size: 18px;
+  vertical-align: middle;
+}
+.svg-litecoin {
+    display: inline-block;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -.125em;
+    font-size: 1em;
+}
+.team-container .team-banner .back-container img {
+  width: 40px;
+  margin-left: 5px;
+}
+
+.team-container .team-banner .title {
+  color: #FFF;
+  font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 40px;
+  margin: 0px;
+}
+
+.team-container .team-body .transactions {
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+.team-container .team-body .chart {
+  height: 500px;
+}

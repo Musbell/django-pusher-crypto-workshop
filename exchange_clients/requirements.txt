@@ -1,0 +1,5 @@
+Django==2.0.3
+Pysher==0.4.2
+pytest==3.4.2
+websocket-client==0.47.0
+pusher==1.7.4

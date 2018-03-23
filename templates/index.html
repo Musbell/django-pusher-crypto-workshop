@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main_content %}
+<!-- last prices -->
+<div id="last-prices">
+  <p class="text">Last prices</p>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="top-card">
+        <p class="title">
+          <span class="fab fa-btc icon"></span>
+          Bitcoin (BTC)
+        </p>
+        <p class="price">
+          USD <span class="price-btc js-price-btc">---</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="top-card">
+        <p class="title">
+          <span class="fab fa-ethereum icon"></span>
+          Ethereum (ETH)
+        </p>
+        <p class="price">
+          USD <span class="price-eth js-price-eth">---</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="top-card">
+        <p class="title">
+          <svg class="svg-litecoin" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0.847 0.876 329.254 329.256"><path d="M330.102 165.503c0 90.922-73.705 164.629-164.626 164.629C74.554 330.132.848 256.425.848 165.503.848 74.582 74.554.876 165.476.876c90.92 0 164.626 73.706 164.626 164.627" fill="currentColor"/><path d="M295.15 165.505c0 71.613-58.057 129.675-129.674 129.675-71.616 0-129.677-58.062-129.677-129.675 0-71.619 58.061-129.677 129.677-129.677 71.618 0 129.674 58.057 129.674 129.677" fill="#3498db"/><path d="M155.854 209.482l10.693-40.264 25.316-9.249 6.297-23.663-.215-.587-24.92 9.104 17.955-67.608h-50.921l-23.481 88.23-19.605 7.162-6.478 24.395 19.59-7.156-13.839 51.998h135.521l8.688-32.362h-84.601" fill="#fff"/></svg>
+          Litecoin (LTC)
+        </p>
+        <p class="price">
+          USD <span class="price-ltc js-price-ltc">---</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- login form -->
+<div class="login-form">
+  <img src="{% static 'images/logo.png' %}" alt="rmotr.com">
+
+  <div class="card login-box">
+    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+      <h1 class="h3 mb-3 font-weight-normal text-center">Log in</h1>
+      {% comment %}
+      {% if form.errors and not form.non_field_errors %}
+          errors happened
+          {% for error in form.non_field_errors %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+      {% endif %}
+      {% endcomment %}
+      <div class="form-group">
+        <label for="id_password" class="sr-only">Username</label>
+        <input name="username" type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="id_username" placeholder="Username" value="{{ form.username.value|default_if_none:"" }}">
+        <div class="invalid-feedback">
+          {% for error in form.username.errors %}
+            {{error}}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id_password" class="sr-only">Password</label>
+        <input name="password" type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" id="id_password" placeholder="Passsword">
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+            {{error}}
+          {% endfor %}
+        </div>
+      </div>
+      <button class="btn">Log in</button>
+
+    </form>
+  </div>
+
+  <p class="footer-text">
+    Do not have an account? <a href="">Sign up now</a>
+  </p>
+</div>
+
+<section class="cards-container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <p class="title">
+          <span class="fab fa-btc icon"></span>
+          Bitcoin (BTC) -
+          <small>
+            last price <span class="highlight">USD <span class="price-btc">1300</span>
+          </small>
+        </p>
+
+        <span id="chart-btc"></span>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <p class="title">
+          <span class="fab fa-ethereum icon"></span>
+          Ethereum (ETH) -
+          <small>
+            last price <span class="highlight">USD <span class="price-eth">1300</span>
+          </small>
+        </p>
+
+        <span id="chart-eth"></span>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <p class="title">
+          <span class="fa fa-circle icon"></span>
+          Litecoin (LTC) -
+          <small>
+            last price <span class="highlight">USD <span class="price-ltc">1300</span>
+          </small>
+        </p>
+
+        <span id="chart-ltc"></span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
