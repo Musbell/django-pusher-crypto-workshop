@@ -1,4 +1,10 @@
 $(document).ready(() => {
+  var LAST_PRICE;
+  $('.js-price-' + window.APP_CONF.page.symbol).on('priceUpdated', function(evt, data){
+    $('.js-buy-button').attr('disabled', false)
+    LAST_PRICE = data.price;
+  })
+
   var MY_ID;
   var pusher = pusherConnect()
   var channel = pusher.subscribe('presence-channel-' + window.APP_CONF.page.symbol);
@@ -48,5 +54,62 @@ $(document).ready(() => {
               $self.remove()
           }
       })
+  });
+  channel.bind('operation', function(data){
+    console.log(data)
+    var $tr = $('<tr></tr>')
+    var $isUser;
+    var $user = $('<td class="user"></td>')
+    var $amount = $('<td class="amount"></td>')
+    var $price = $('<td class="price"></td>')
+    var $time = $('<td class="time"></td>')
+
+    if(data.user.id == MY_ID){
+        $isUser = $('<th scope="row"><i class="fa fa-user"></i></th>');
+    }else{
+        $isUser = $('<th scope="row"></th>');
+    }
+    $user.html(data.user.full_name)
+    $amount.html(data.amount)
+    $price.html('USD ' + data.price)
+    $time.html(data.timestamp)
+
+    $tr.append($isUser)
+    $tr.append($user)
+    $tr.append($amount)
+    $tr.append($price)
+    $tr.append($time)
+
+    $tr.prependTo(".js-transactions-table > .js-transactions-tbody");
+
+  })
+
+  // Ajax Setup
+  function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", window.APP_CONF.csrfToken);
+          }
+      }
+  });
+
+  // Buy cryptos
+  $('.js-buy-button').on('click', function(evt){
+    if(!LAST_PRICE){
+      return false;
+    }
+    var amount = $(this).data('amount')
+    $.post(
+      '/team/' + window.APP_CONF.page.symbol + '/buy', {
+        amount: amount,
+        price: LAST_PRICE
+      }, function(data) {
+        console.log(data)
+      },
+    "json");
   });
 });

@@ -104,7 +104,12 @@ $(document).ready(() => {
         series = 1;
       }
       var price = [(new Date(data.timestamp)).getTime(), data.price];
-      $('.js-price-' + symbol).html(data.price)
+
+      var $lastPrice = $('.js-price-' + symbol);
+      $lastPrice.html(data.price)
+      $lastPrice.trigger('priceUpdated', {
+        'price': data.price
+      })
 
       var chartData = cryptoData[data.exchange];
       chartData.push(price)

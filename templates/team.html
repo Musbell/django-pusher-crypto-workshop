@@ -24,7 +24,7 @@
           <span class="fas fa-exchange-alt icon"></span>
           Last transactions
         </p>
-        <table class="table table-hover">
+        <table class="table table-hover js-transactions-table">
           <thead>
             <tr>
               <th scope="row"></th>
@@ -34,63 +34,20 @@
               <th>UTC Time</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row"></th>
-              <td class="user">User 1</td>
-              <td class="amount">0.00208465</td>
-              <td class="price">USD 8609.16</td>
-              <td class="time">20:23:32</td>
-            </tr>
-            <tr class="self">
-              <th scope="row"><i class="fa fa-user"></i></th>
-              <td class="user">User 2</td>
-              <td class="amount">0.14837346</td>
-              <td class="price">USD 8602.95</td>
-              <td class="time">21:56:41</td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td class="user">User 3</td>
-              <td class="amount">0.01642829</td>
-              <td class="price">USD 8601.08</td>
-              <td class="time">21:56:28</td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td class="user">User 3</td>
-              <td class="amount">0.01642829</td>
-              <td class="price">USD 8601.08</td>
-              <td class="time">21:56:28</td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td class="user">User 3</td>
-              <td class="amount">0.01642829</td>
-              <td class="price">USD 8601.08</td>
-              <td class="time">21:56:28</td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td class="user">User 3</td>
-              <td class="amount">0.01642829</td>
-              <td class="price">USD 8601.08</td>
-              <td class="time">21:56:28</td>
-            </tr>
-            <tr class="self">
-              <th scope="row"><i class="fa fa-user"></i></th>
-              <td class="user">User 2</td>
-              <td class="amount">0.01642829</td>
-              <td class="price">USD 8601.08</td>
-              <td class="time">21:56:28</td>
-            </tr>
-            <tr>
-              <th scope="row"></th>
-              <td class="user">User 3</td>
-              <td class="amount">0.01642829</td>
-              <td class="price">USD 8601.08</td>
-              <td class="time">21:56:28</td>
-            </tr>
+          <tbody class="js-transactions-tbody">
+            {% for operation in operations %}
+              <tr>
+                {% if operation.user == request.user %}
+                  <th scope="row"><i class="fa fa-user"></i></th>
+                {% else %}
+                  <th scope="row"></th>
+                {% endif %}
+                <td class="user">{{ operation.user.get_full_name }}</td>
+                <td class="amount">{{ operation.amount }}</td>
+                <td class="price">USD {{ operation.price }}</td>
+                <td class="time">{{ operation.timestamp }}</td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
@@ -101,7 +58,7 @@
         <p class="title">
           <span class="fas fa-money-bill-alt icon"></span>
           Current budget: <span class="highlight">
-            USD <span class="current-budget">1000</span>
+            <span class="current-budget">UNLIMITED</span>
           </span>
         </p>
 
@@ -110,15 +67,15 @@
         <p class="title">Want to buy?</p>
         <div class="row">
           <div class="col-md-4">
-            <button class="btn">$100</button>
+            <button class="btn js-buy-button" data-amount='100' disabled>$100</button>
           </div>
 
           <div class="col-md-4">
-            <button class="btn">$500</button>
+            <button class="btn js-buy-button" data-amount='500' disabled>$500</button>
           </div>
 
           <div class="col-md-4">
-            <button class="btn">$1000</button>
+            <button class="btn js-buy-button" data-amount='1000' disabled>$1000</button>
           </div>
         </div>
       </div>

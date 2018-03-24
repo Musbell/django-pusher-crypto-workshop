@@ -1,9 +1,11 @@
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.http import (
+    HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseBadRequest)
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.utils import formats
 
-from .models import CoinMonitor
+from .models import CoinMonitor, BuyOperation
 from . import pusher
 
 @login_required
@@ -24,14 +26,46 @@ def team(request, symbol):
     except CoinMonitor.DoesNotExist:
         return redirect(reverse('generic_team'))
 
-    # return HttpResponse("Hola {}".format(monitor_team.symbol))
+    operations = BuyOperation.objects.filter(symbol=symbol.upper())
     return render(request, 'team.html', {
-        'monitor_team': monitor_team
+        'monitor_team': monitor_team,
+        'operations': operations
     })
 
 
-def index(request):
-    return render(request, 'index.html')
+@login_required
+def team_buy(request, symbol):
+    if not all([f in request.POST for f in ('amount', 'price')]):
+        return HttpResponseBadRequest()
+    try:
+        amount = float(request.POST['amount'])
+        price = float(request.POST['price'])
+    except ValueError:
+        return HttpResponseBadRequest()
+
+    op = BuyOperation.objects.create(
+        user=request.user,
+        price=price,
+        symbol=symbol.upper(),
+        amount=amount)
+    pusher_client = pusher.connect()
+    channel = 'presence-channel-{}'.format(symbol.lower())
+    pusher_client.trigger(channel, 'operation', {
+        'user': {
+            'id': request.user.id,
+            'full_name': request.user.get_full_name(),
+            'email': request.user.email
+        },
+        'price': price,
+        'amount': amount,
+        'timestamp': formats.date_format(op.timestamp, 'F j, Y, P')
+    })
+    # March 24, 2018, 11:03 a.m.
+
+    return JsonResponse({
+        'success': True,
+        'operation': op.id
+    })
 
 
 def pusher_auth(request):
@@ -44,7 +78,6 @@ def pusher_auth(request):
         # We're handling only presence channels for now
         return HttpResponseForbidden()
 
-    print(request.POST)
     _, symbol = request.POST['channel_name'].split(prefix)
 
     is_team_member = CoinMonitor.objects.filter(
@@ -70,3 +103,7 @@ def pusher_auth(request):
 
     auth = pusher_client.authenticate(**kwargs)
     return JsonResponse(auth)
+
+
+def index(request):
+    return render(request, 'index.html')

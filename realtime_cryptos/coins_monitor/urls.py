@@ -16,6 +16,7 @@ def redirect_users_team_page(view_func):
 urlpatterns = [
     path('team/', views.generic_team, name='generic_team'),
     path('team/<slug:symbol>', views.team, name='team'),
+    path('team/<slug:symbol>/buy', views.team_buy, name='team_buy'),
 
     path('pusher_auth', views.pusher_auth, name='pusher_auth'),
 
