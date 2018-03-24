@@ -16,7 +16,7 @@ function createChart(chartName, symbol, data){
           second: '%k:%M:%S',
       },
       title: {
-          text: 'Timestamp'
+          text: 'Timestamp (UTC)'
       },
       crosshair: true,
     },
