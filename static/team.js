@@ -56,7 +56,7 @@ $(document).ready(() => {
       })
   });
   channel.bind('operation', function(data){
-    console.log(data)
+
     var $tr = $('<tr></tr>')
     var $isUser;
     var $user = $('<td class="user"></td>')
@@ -108,7 +108,7 @@ $(document).ready(() => {
         amount: amount,
         price: LAST_PRICE
       }, function(data) {
-        console.log(data)
+        // console.log(data)
       },
     "json");
   });
