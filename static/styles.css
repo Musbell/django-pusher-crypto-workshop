@@ -236,6 +236,13 @@ section {
   cursor: pointer;
   padding: 20px;
 }
+.team-container .team-banner .logout-container {
+  position: absolute;
+  top: 0px;
+  left: 90%;
+  cursor: pointer;
+  padding: 20px;
+}
 
 .team-container .team-banner .back-container .back {
   color: #FFF;
