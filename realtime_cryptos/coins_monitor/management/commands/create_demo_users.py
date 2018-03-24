@@ -41,5 +41,6 @@ class Command(BaseCommand):
                 email=email,
             )
             user.set_password(password)
+            user.save()
             monitor.monitors.add(user)
             user_id = user_id + 1
