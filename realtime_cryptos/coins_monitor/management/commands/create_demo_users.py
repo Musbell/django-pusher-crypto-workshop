@@ -2,6 +2,7 @@ import random
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 
+from coins_monitor.models import CoinMonitor
 from . import names
 
 
@@ -9,10 +10,15 @@ class Command(BaseCommand):
     help = 'Generate demo users'
 
     def add_arguments(self, parser):
-        parser.add_argument('-q', '--quantity', type=int, required=False, default=50)
+        parser.add_argument(
+            '-s', '--symbol', type=str,
+            required=True)
+        parser.add_argument(
+            '-q', '--quantity', type=int,
+            required=False, default=20)
 
     def handle(self, *args, **options):
-        # print(names.LAST_NAMES)
+        monitor = CoinMonitor.objects.get(symbol=options['symbol'].upper())
         if User.objects.exists():
             largest_user_id = User.objects.latest('id').id
         else:
@@ -35,4 +41,5 @@ class Command(BaseCommand):
                 email=email,
             )
             user.set_password(password)
+            monitor.monitors.add(user)
             user_id = user_id + 1
