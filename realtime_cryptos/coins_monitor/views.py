@@ -56,11 +56,10 @@ def team_buy(request, symbol):
             'full_name': request.user.get_full_name(),
             'email': request.user.email
         },
-        'price': price,
-        'amount': amount,
+        'price': '{:.2f}'.format(op.price),
+        'amount': '{:.2f}'.format(op.amount),
         'timestamp': formats.date_format(op.timestamp, 'F j, Y, P')
     })
-    # March 24, 2018, 11:03 a.m.
 
     return JsonResponse({
         'success': True,
