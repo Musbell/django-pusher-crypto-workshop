@@ -9,3 +9,6 @@ class CoinMonitor(models.Model):
     icon_html = models.TextField(blank=True, default='')
 
     monitors = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+    def __str__(self):
+        return self.name

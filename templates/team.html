@@ -146,22 +146,10 @@
             <tr>
               <th>Name</th>
               <th>Email</th>
+              <th scope="row"></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>User 1</td>
-              <td>user1@rmotr.com</td>
-            </tr>
-            <tr>
-              <td>User 2</td>
-              <td>user2@rmotr.com</td>
-            </tr>
-            <tr>
-              <td>User 3</td>
-              <td>user3@rmotr.com</td>
-            </tr>
-          </tbody>
+          <tbody class='js-members'></tbody>
         </table>
       </div>
     </div>
@@ -170,5 +158,8 @@
 {% endblock %}
 
 {% block extra_scripts_footer %}
+  <script type="text/javascript">
+    window.APP_CONF.page.symbol = '{{ monitor_team.symbol|lower }}';
+  </script>
   <script src="{% static "team.js" %}" charset="utf-8"></script>
 {% endblock %}

@@ -39,17 +39,32 @@ def pusher_auth(request):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
+    prefix = 'presence-channel-'
+    if not request.POST['channel_name'].startswith(prefix):
+        # We're handling only presence channels for now
+        return HttpResponseForbidden()
+
+    print(request.POST)
+    _, symbol = request.POST['channel_name'].split(prefix)
+
+    is_team_member = CoinMonitor.objects.filter(
+        symbol__iexact=symbol, monitors__id=request.user.id).exists()
+    if not is_team_member:
+        return HttpResponseForbidden()
     kwargs = {
         'channel': request.POST['channel_name'],
         'socket_id': request.POST['socket_id'],
     }
-    if request.POST['channel_name'].startswith('presence'):
+
+    if request.POST['channel_name'].startswith(prefix):
         kwargs['custom_data'] = {
             'user_id': request.user.id,
             'user_info': {
                 'username': request.user.username,
                 'first_name': request.user.first_name,
-                'last_name': request.user.last_name
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'full_name': request.user.get_full_name()
             }
         }
 
