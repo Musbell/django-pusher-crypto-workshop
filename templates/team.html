@@ -15,6 +15,7 @@
   </p><br>
   <p class="title">$<span class="js-price-{{ monitor_team.symbol|lower }}">---</span></p>
   <div class="logout-container">
+    <p class="user-info">{{ request.user.get_full_name }}</p>
     <a href="/logout">Log out</a>
   </div>
 </div>

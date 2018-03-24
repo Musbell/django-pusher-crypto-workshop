@@ -239,9 +239,13 @@ section {
 .team-container .team-banner .logout-container {
   position: absolute;
   top: 0px;
-  left: 90%;
+  left: 80%;
+  width: 200px;
   cursor: pointer;
   padding: 20px;
+}
+.team-container .team-banner .logout-container p.user-info{
+  color: #fff;
 }
 
 .team-container .team-banner .back-container .back {
